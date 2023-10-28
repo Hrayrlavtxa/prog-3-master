@@ -9,7 +9,7 @@ app.get("/", function (req, res) {
 });                                                           
                                                               
 server.listen(3001, function () {                             
-    console.log("App is running on port 3000");               
+    console.log("App is running on port 3001");               
 });                                                           
                                                               
                                                               
@@ -17,14 +17,16 @@ const random = require("./random")
 const Grass = require("./grass")                              
 const GrassEater = require("./grasseater")                    
 const Predator = require("./predator")                        
-const Bear = require("./bear")                                
+const Bear = require("./bear")          
+const Lion = require("./lion")                           
                                                               
                                                               
 matrix = []                                                   
 grassArr = []                                                 
 grassEaterArr = []                                            
 predatorArr = []                                              
-bearArr = []                                                  
+bearArr = []  
+lionArr = []                                                
 const n = 28                                                  
 const m = 40                                                  
                                                               
@@ -43,10 +45,11 @@ function createGame() {
             matrix[v][w] = index                              
         }                                                     
     }                                                         
-    characters(1, 600)                                        
+    characters(1, 500)                                        
     characters(2, 200)                                        
     characters(3, 80)                                         
-    characters(4, 20)                                         
+    characters(4, 20)         
+    characters(5, 40)                                  
     for (var y = 0; y < matrix.length; ++y) {                 
         for (var x = 0; x < matrix[y].length; ++x) {          
             if (matrix[y][x] === 1) {                         
@@ -62,9 +65,13 @@ function createGame() {
                 predatorArr.push(pre);                        
             }                                                 
             else if (matrix[y][x] === 4) {                    
-                var be = new Bear(x, y, 3);                   
+                var be = new Bear(x, y, 4);                   
                 bearArr.push(be);                             
-            }                                                 
+            }           
+            else if (matrix[y][x] === 5) {                    
+                var li = new Bear(x, y, 5);                   
+                lionArr.push(li);                             
+            }                                         
         }                                                     
     }                                                         
 }                                                             
@@ -81,7 +88,10 @@ function drawGame() {
     }                                                         
     for (var i in bearArr) {                                  
         bearArr[i].eat();                                     
-    }                                                         
+    }     
+    for (var i in lionArr) {                                  
+        lionArr[i].eat();                                     
+    }                                                      
     io.emit("matrix", matrix)                                 
 }                                                             
                                                               

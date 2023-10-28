@@ -27,9 +27,13 @@ function drawGame(matrix) {
             else if (matrix[y][x] === 4) {
                 fill("#99582a")
             }
+            else if (matrix[y][x] === 5) {
+                fill("coral")
+            }
             rect(x * side, y * side, side, side);
         }
     }
 }
 
 socket.on("matrix", drawGame)
+alert("es anca che?XD")
